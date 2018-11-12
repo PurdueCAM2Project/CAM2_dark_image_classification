@@ -6,9 +6,13 @@ import eventlet
 import os
 import numpy as np
 from PIL import Image
+
+#create a new directory to store downloadede image
 if not os.path.exists('imageall1'):
     os.makedirs('imageall1')
 dataset=[]
+
+## csvfile format: ip,port, image_path
 with open('mysqlout/bbb.csv','r') as csvfile:
     reader =csv.reader(csvfile)
     i=0
@@ -22,15 +26,15 @@ with open('mysqlout/bbb.csv','r') as csvfile:
         try:
             urllib.request.urlretrieve(url=urlstr, filename=path)
             im = Image.open(path)
-
             (x, y) = im.size
+            ##reshape image
             x_s = 40
             y_s = 30
             out = im.resize((x_s, y_s), Image.ANTIALIAS)
             im2 = np.array(out)
+            ## fix the channels of images
             if (len(im2.shape) < 3):
                 imx = np.ndarray([im2.shape[0], im2.shape[1], 3])
-                # im2=np.reshape(im2,[im2.shape[0],im2.shape[1],-1])
                 for x in range(im2.shape[0]):
                     for y in range(im2.shape[1]):
                           imx[x][y][0] = im2[x][y]
@@ -39,8 +43,8 @@ with open('mysqlout/bbb.csv','r') as csvfile:
             else:
                 imx = im2
             print(imx.shape)
-            if(imx.shape!=(30,40,3)):
-                print('invalid shapr')
+            # if(imx.shape!=(30,40,3)):
+            #     print('invalid shapr')
             dataset.append(imx)
             if (i % 50 == 0):
                 np.save('./npyfile/dataset%d.npy' % i, dataset)
