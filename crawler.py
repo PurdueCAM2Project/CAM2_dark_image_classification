@@ -45,8 +45,8 @@ with open('mysqlout/bbb.csv','r') as csvfile:
             print(imx.shape)
             dataset.append(imx)
             if (i % 50 == 0):
-                np.save('./npyfile/dataset%d.npy' % i, dataset)
-                arr = np.load('./npyfile/dataset%d.npy' % i, allow_pickle=True)
+                np.save('./nightnpy/dataset%d.npy' % i, dataset)
+                arr = np.load('./nightnpy/dataset%d.npy' % i, allow_pickle=True)
                 print(arr.shape)
                 # dataset.clear()
                 # dataset=[]

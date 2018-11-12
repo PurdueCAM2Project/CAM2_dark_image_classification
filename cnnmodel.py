@@ -22,8 +22,8 @@ def cnn_model_fn(features, labels, mode):
     # input_norm = tf.layers.batch_normalization(input_layer)
     # print(input_norm)
     # Convolutional Layer #1
-    with tf.name_scope('conv1'):
-        conv1 = tf.layers.conv2d(
+
+    conv1 = tf.layers.conv2d(
             inputs=input_layer,
             filters=16,
             kernel_size=[5, 5],
@@ -31,7 +31,7 @@ def cnn_model_fn(features, labels, mode):
             activation=tf.nn.relu,
             name='conv1')
 
-        print(conv1)
+    print(conv1)
 
     # Pooling Layer #1
     # conv1_norm = tf.layers.batch_normalization(conv1)
@@ -87,8 +87,8 @@ def cnn_model_fn(features, labels, mode):
     tf.summary.scalar('loss', loss)
 
     if mode == tf.estimator.ModeKeys.TRAIN:
-        rate = tf.train.exponential_decay(learning_rate=0.1, global_step=tf.train.get_global_step(), decay_steps=100,
-                                          decay_rate=0.9, staircase=False)
+        rate = tf.train.exponential_decay(learning_rate=0.01, global_step=tf.train.get_global_step(), decay_steps=100,
+                                          decay_rate=0.98, staircase=False)
         train_op = tf.train.AdadeltaOptimizer(learning_rate=rate).minimize(
             loss=loss,
             global_step=tf.train.get_global_step())
@@ -111,12 +111,26 @@ def main(unused_argv):
     datay = np.load('y.npy')
     # datax = datax.reshape([-1, 40, 40, 6])
     # my_feature_columns = [tf.feature_column.numeric_column(key='x', shape=[14400])]
-    train_data = datax[0:340]  # Returns np.array
-    train_labels = datay[0:340]
-
-    eval_data = datax[300:340]
-    eval_labels = datay[300:340]
-
+    # train_data = datax[0:340]  # Returns np.array
+    # train_labels = datay[0:340]
+    #
+    # eval_data = datax[300:340]
+    # eval_labels = datay[300:340]
+    train_data=[]
+    train_labels=[]
+    eval_data=[]
+    eval_labels=[]
+    for i in range(0,len(datax)):
+        if(i&4==0):
+            eval_data.append(datax[i])
+            eval_labels.append(datay[i])
+        else:
+            train_data.append(datax[i])
+            train_labels.append(datay[i])
+    eval_data=np.array(eval_data)
+    eval_labels=np.array(eval_labels)
+    train_data=np.array(train_data)
+    train_labels=np.array(train_labels)
     estimator = tf.estimator.Estimator(
         model_fn=cnn_model_fn,
         model_dir='tensorboard/model'
@@ -129,13 +143,13 @@ def main(unused_argv):
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": train_data},
         y=train_labels,
-        batch_size=128,
+        batch_size=1,
         num_epochs=None,
         shuffle=True,
         num_threads=4)
     train_res = estimator.train(
         input_fn=train_input_fn,
-        steps=3000
+        steps=1000
     )
     print('train result')
     print(train_res)

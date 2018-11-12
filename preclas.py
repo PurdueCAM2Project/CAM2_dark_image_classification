@@ -27,7 +27,7 @@ def preclassify(img_array):
     for i in range(0,len(img_array)):
         avg=imgavg(img_array[i])
         std=imgstd(img_array[i])
-        if(avg<50 and std<30):
+        if(avg<50 or std<30):
             onehot_label[i]=[0,1]
         else:
             onehot_label[i]=[1,0]
