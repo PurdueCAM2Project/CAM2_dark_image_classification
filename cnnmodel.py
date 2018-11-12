@@ -135,7 +135,7 @@ def main(unused_argv):
         num_threads=4)
     train_res = estimator.train(
         input_fn=train_input_fn,
-        steps=1000
+        steps=3000
     )
     print('train result')
     print(train_res)
