@@ -43,8 +43,6 @@ with open('mysqlout/bbb.csv','r') as csvfile:
             else:
                 imx = im2
             print(imx.shape)
-            # if(imx.shape!=(30,40,3)):
-            #     print('invalid shapr')
             dataset.append(imx)
             if (i % 50 == 0):
                 np.save('./npyfile/dataset%d.npy' % i, dataset)
