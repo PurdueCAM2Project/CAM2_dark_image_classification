@@ -5,7 +5,7 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import numpy as np
 import tensorflow as tf
-
+from tensorflow import keras
 tf.logging.set_verbosity(tf.logging.INFO)
 
 
@@ -61,13 +61,22 @@ def cnn_model_fn(features, labels, mode):
     #     inputs=dense3, rate=0.2, training=mode == tf.estimator.ModeKeys.TRAIN)
 
     output = dense3
-
+    logits=output
     predictions = {
         'val': output
     }
 
+    predicted = tf.argmax(input=logits, axis=1)
+    lableclass = tf.argmax(input=labels, axis=1)
+    print(lableclass.shape)
+    print(predicted.shape)
     if mode == tf.estimator.ModeKeys.PREDICT:
-        return tf.estimator.EstimatorSpec(mode=mode, predictions=predictions)
+        predictions = {
+            'class': predicted,
+            'probabilities': tf.nn.softmax(logits),
+            'logits': logits,
+        }
+        return tf.estimator.EstimatorSpec(mode, predictions=predictions)
 
     # Calculate Loss (for both TRAIN and EVAL modes)
     loss = tf.losses.softmax_cross_entropy(onehot_labels=labels, logits=output)
@@ -85,10 +94,14 @@ def cnn_model_fn(features, labels, mode):
 
     # Add evaluation metrics (for EVAL mode)
     if mode == tf.estimator.ModeKeys.EVAL:
-        celoss= tf.losses.softmax_cross_entropy(onehot_labels=labels,logits=output)
-        eval_metric_ops = { "error": celoss}
+        # celoss= tf.losses.softmax_cross_entropy(onehot_labels=labels,logits=output)
+
+        accuracy = tf.metrics.accuracy(labels=lableclass,
+                                       predictions=predicted,
+                                       name='acc_op')
+        eval_metric_ops = {"accuricy":accuracy}
         return tf.estimator.EstimatorSpec(
-            mode=mode, loss=loss)
+            mode=mode, loss=loss,eval_metric_ops=eval_metric_ops)
 
 def main(unused_argv):
     # Load training and eval data
@@ -113,13 +126,13 @@ def main(unused_argv):
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": train_data},
         y=train_labels,
-        batch_size=128,
-        num_epochs=100,
+        batch_size=16,
+        num_epochs=None,
         shuffle=True,
-        num_threads=8)
+        num_threads=4)
     train_res = estimator.train(
         input_fn=train_input_fn,
-
+        steps=1000
     )
     print('train result')
     print(train_res)
@@ -130,8 +143,6 @@ def main(unused_argv):
         shuffle=False)
     eval_results = estimator.evaluate(input_fn=eval_input_fn)
     print(eval_results)
-
-    # x = estimator.predict(input_fn=eval_input_fn)
 
 
 tf.logging.set_verbosity(tf.logging.INFO)
