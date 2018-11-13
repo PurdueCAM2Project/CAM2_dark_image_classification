@@ -10,6 +10,9 @@ from PIL import Image
 #create a new directory to store downloadede image
 if not os.path.exists('imageall1'):
     os.makedirs('imageall1')
+
+if not os.path.exists('nightnpy'):
+    os.makedirs('nightnpy')
 dataset=[]
 
 ## csvfile format: ip,port, image_path

@@ -19,12 +19,12 @@ def cnn_model_fn(features, labels, mode):
     input_layer = tf.reshape(features["x"], [-1, 40, 30, 3])
     print(input_layer)
     input_layer = tf.cast(input_layer, dtype=tf.float32)
-    # input_norm = tf.layers.batch_normalization(input_layer)
+    input_norm = tf.layers.batch_normalization(input_layer)
     # print(input_norm)
     # Convolutional Layer #1
 
     conv1 = tf.layers.conv2d(
-            inputs=input_layer,
+            inputs=input_norm,
             filters=16,
             kernel_size=[5, 5],
             padding='valid',
@@ -143,7 +143,7 @@ def main(unused_argv):
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": train_data},
         y=train_labels,
-        batch_size=1,
+        batch_size=128,
         num_epochs=None,
         shuffle=True,
         num_threads=4)
