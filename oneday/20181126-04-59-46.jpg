@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+		<title>Registration</title>
+		<base href="/register/">
+		<link rel="stylesheet" type="text/css" href="https://cdn-1.elauwit.net/collections/libs/bootstrap/3.3.2/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn-5.elauwit.net/collections/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn-6.elauwit.net/collections/libs/angular-ui-select/0.11.2/select.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn-1.elauwit.net/collections/libs/angular-ui-bootstrap/0.13.0/css/ui-bootstrap-0.13.0-csp.css" />
+		
+			<link rel="stylesheet" type="text/css" href="https://cdn-4.elauwit.net/collections/libs/hyperdrive/latest/css/Hyperdrive.min.css" />
+			<link rel="stylesheet" type="text/css" href="https://cdn-4.elauwit.net/collections/libs/styles/css/styles.min.css" />
+		
+		<link rel="stylesheet" type="text/css" href="styles/css/app.css">
+		<link rel="stylesheet" type="text/css" href="styles/css/fonts.css">
+		<script type="text/javascript">
+			(function (window) {
+				window.__env = window.__env || {};
+				
+				window.__env = {
+					CLICKDESK_CLIENT_TOKEN: "all_ag9zfmNsaWNrZGVza2NoYXRyEgsSBXVzZXJzGICA4LT5u7sLDA", 
+					ACCEPT_LANGUAGE: ""
+				};
+			}(this));
+		</script>
+		<script>
+		var _rollbarConfig = {
+			accessToken: "ac8dd171a46f41128ba081569cb26a95",
+			ignoredMessages: ["HB is not defined","Script error","Can't find variable: HB","BB is not defined","KgWebSupperCall","pauseVideo"],
+			captureUncaught: true,
+			payload: {
+				environment: "production",
+				client: {
+					javascript: {
+						source_map_enabled: true
+					}
+				}
+			},
+			endpoint: 'rest/rollbar'
+		};
+		</script>
+		<script type="text/javascript" src="https://cdn-1.elauwit.net/collections/libs/rollbar/1.9.1/rollbar-1.9.1.min.js"></script>
+		<script>
+		var api_url = 'https://api.elauwit.net/v2';
+		var ws_api_url = 'https://api.elauwit.net';
+		var base_url = '/register/';
+		
+		function reportScriptLoadFailure(element) {
+			var error = 'Failed to load JS asset: ';
+			
+			if (element && element.attributes.src) {
+				error += element.attributes.src.value;
+			} else {
+				error + 'Unknown';
+			}
+			
+			Rollbar.error(error);
+		}
+		</script>
+		<script type="text/javascript" src="https://cdn-1.elauwit.net/collections/libs/angular.js/1.3.8/angular.min.js"></script>
+		<script type="text/javascript" src="https://cdn-2.elauwit.net/collections/libs/angular.js/1.3.15/angular-cookies.min.js"></script>
+		<script type="text/javascript" src="https://cdn-3.elauwit.net/collections/libs/angular.js/1.3.15/angular-animate.min.js"></script>
+		<script type="text/javascript" src="https://cdn-4.elauwit.net/collections/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
+		<script type="text/javascript" src="https://cdn-5.elauwit.net/collections/libs/angular-ui-bootstrap/0.13.0/js/ui-bootstrap-tpls-0.13.0.min.js"></script>
+		<script type="text/javascript" src="https://cdn-6.elauwit.net/collections/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn-1.elauwit.net/collections/libs/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://cdn-2.elauwit.net/collections/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://cdn-3.elauwit.net/collections/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+		<script type="text/javascript" src="https://cdn-4.elauwit.net/collections/libs/angular.js/1.3.15/angular-sanitize.min.js"></script>
+		<script type="text/javascript" src="https://cdn-5.elauwit.net/collections/libs/angular-ui-select/0.11.2/select.min.js"></script>
+		<script type="text/javascript" src="js/user_agent.js"></script>
+		<script type="text/javascript" src="js/user_agent_customize.js"></script>
+		
+			<script type="text/javascript" src="https://cdn-6.elauwit.net/collections/libs/hyperdrive/latest/js/Hyperdrive.min.js"></script>
+			<script type="text/javascript" src="https://cdn-2.elauwit.net/collections/apps/registration/js/app.min.js"></script>
+		
+		<!--<script type="text/javascript" src="https://cdn-3.elauwit.net/libs/clickdesk/injector.js"></script>-->
+	</head>
+	<body hd-ui-load-mask domain="unknown">
+		<div class="col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6">
+			<div ui-view>
+			
+			</div>
+			<div id="registration-footer" class="col-xs-12 col-md-offset-2 col-md-8 background-wl-primary border-wl-primary">
+				<!--<div id="support-tooltip" class="background-wl-accent allow-close" ng-show="clickDeskTooltipVisible" ng-click="clickDeskTooltipVisible = false;">
+					Get help or chat with us directly!
+					<span id="support-tooltip-close" ng-click="clickDeskTooltipVisible = false;">&times;</span>
+					<div class="arrow arrow-down border-wl-accent"></div>
+				</div>-->
+				<div class="pull-left copyright">&copy; {{date | date: 'yyyy'}} {{serviceProvider.name}}</div>
+				<div class="pull-right">
+					<div class="btn-group dropup" ng-click="clickDeskTooltipVisible = false;">
+						<button class="btn btn-sm btn-wl-accent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Support <span class="caret"></span></button>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<!--<li ng-if="clickDeskStatus === 'online'" ng-click="openClickDesk();">
+								<a href>
+									<i class="glyphicon glyphicon-comment"></i> Live Chat
+								</a>
+							</li>
+							<li ng-if="clickDeskStatus === 'offline'" style="opacity:0.5;">
+								<a href>
+									<i class="glyphicon glyphicon-comment"></i> Live Chat Unavailable
+								</a>
+							</li>-->
+							<li ng-if="site.support_number">
+								<a href="tel:{{site.support_number}}">
+									<i class="glyphicon glyphicon-earphone"></i> {{site.support_number| phoneNumber}}
+								</a>
+							</li>
+							<li ng-if="!site.support_number && serviceProvider.support_number">
+								<a href="tel:{{serviceProvider.support_number}}">
+									<i class="glyphicon glyphicon-earphone"></i> {{serviceProvider.support_number | phoneNumber}}
+								</a>
+							</li>
+							<li ng-if="serviceProvider.support_sms">
+								<a href="sms:{{serviceProvider.support_sms}}">
+									<i class="glyphicon glyphicon-phone"></i> Text 'support' to {{serviceProvider.support_sms}}
+								</a>
+							</li>
+							<li ng-if="serviceProvider.support_email">
+								<a href="mailto:{{serviceProvider.support_email}}">
+									<i class="glyphicon glyphicon-envelope"></i> {{serviceProvider.support_email}}
+								</a>
+							</li>
+						</ul>
+					</div>
+					<button class="btn btn-sm btn-wl-accent" href="#" data-toggle="modal" data-target="#why-am-i-here">Why am I here?</button>
+				</div>
+			</div>
+		</div>
+		<div class="modal wl-modal fade" id="why-am-i-here">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+						<h4 class="modal-title">Wondering why you're here? Here are some FAQs that might help.</h4>
+					</div>
+					<div class="modal-body">
+						<p><strong>Why am I here?</strong><br />This device is not registered in our system. </p>
+						<p><strong>I've already registered a device. Why do I need to register again?</strong><br />You must register each device under your account separately. We cannot tell that the device you already registered belongs to the same account as the device you're trying to use now. So, you must register it in order to access the internet.</p>
+						<p><strong>I've already registered this device, so why am I here?</strong><br />Something must have gone wrong. Please contact our HelpDesk so a representative can take a look. </p>
+						<p><strong>I am unable to complete the account creation or registration process.</strong><br />If you cannot complete the process for any reason, please contact our HelpDesk. One of our helpful representatives will be able to assist you promptly.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hd-ui-alert></hd-ui-alert>
+		<hd-ui-alert-form></hd-ui-alert-form>
+	</body>
+</html>

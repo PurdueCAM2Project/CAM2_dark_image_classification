@@ -41,12 +41,13 @@ if not os.path.exists('singleCamImg'):
     os.makedirs('singleCamImg')
 exampleurl = 'http://207.251.86.238/cctv202.jpg'
 outpath = 'singleCamImg/'
-timewait = 1200 ## take image per 20 minutes
-def main():
+timewait = 600 ## take image per 20 minutes
+def download():
     schedule = sched.scheduler(time.time, time.sleep)
     i=0
     while(1):
-        path = outpath + time.strftime("%Y%m%d-%H-%M-%S.jpg", time.localtime(time.time()))
+        # path = outpath + time.strftime("%Y%m%d-%H-%M-%S.jpg", time.localtime(time.time()))
+        path = outpath +"%d.jpg"%i
         print(path)
         schedule.enter(timewait, 0, downImg, (exampleurl, path))
         schedule.run()
@@ -57,5 +58,7 @@ def main():
             print(arr.shape)
 
 
+
+
 if __name__ == "__main__":
-    main()
+    download()
